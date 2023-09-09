@@ -1,20 +1,18 @@
 package akka.grpc
 
-import sbt.Keys._
-import sbt._
-import sbt.plugins.JvmPlugin
-import akka.grpc.Dependencies.Versions.{ scala212, scala213, scala3 }
+import akka.grpc.Dependencies.Versions.{scala212, scala213, scala3}
 import com.lightbend.paradox.projectinfo.ParadoxProjectInfoPluginKeys.projectInfoVersion
+import com.typesafe.tools.mima.plugin.MimaKeys.*
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile
-import com.typesafe.tools.mima.plugin.MimaKeys._
-import sbtprotoc.ProtocPlugin.autoImport.PB
-import xerial.sbt.Sonatype
-import xerial.sbt.Sonatype.autoImport.sonatypeProfileName
+import sbt.*
+import sbt.Keys.*
+import sbt.plugins.JvmPlugin
+import sbtghpackages.GitHubPackagesKeys.*
 
 object Common extends AutoPlugin {
   override def trigger = allRequirements
 
-  override def requires = JvmPlugin && Sonatype
+  override def requires = JvmPlugin
 
   private val consoleDisabledOptions = Seq("-Xfatal-warnings", "-Ywarn-unused", "-Ywarn-unused-import")
 
@@ -23,7 +21,6 @@ object Common extends AutoPlugin {
       organization := "com.lightbend.akka.grpc",
       organizationName := "Lightbend Inc.",
       organizationHomepage := Some(url("https://www.lightbend.com/")),
-      resolvers ++= Resolver.sonatypeOssRepos("staging"), // makes testing HTTP releases early easier
       homepage := Some(url("https://akka.io/")),
       scmInfo := Some(ScmInfo(url("https://github.com/akka/akka-grpc"), "git@github.com:akka/akka-grpc")),
       developers += Developer(
@@ -42,11 +39,12 @@ object Common extends AutoPlugin {
           else "v" + version.value
         Seq(("BUSL-1.1", url(s"https://raw.githubusercontent.com/akka/akka-grpc/${tagOrBranch}/LICENSE")))
       },
-      description := "Akka gRPC - Support for building streaming gRPC servers and clients on top of Akka Streams.")
+      description := "Akka gRPC - Support for building streaming gRPC servers and clients on top of Akka Streams.",
+      githubOwner := "klubraum",
+      githubRepository := "akka-grpc")
 
   override lazy val projectSettings = Seq(
     projectInfoVersion := (if (isSnapshot.value) "snapshot" else version.value),
-    sonatypeProfileName := "com.lightbend",
     scalacOptions ++= Seq(
       "-release",
       "8",
