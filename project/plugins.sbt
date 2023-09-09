@@ -15,7 +15,6 @@ addSbtPlugin("io.spray" % "sbt-revolver" % "0.10.0")
 addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "1.1.3")
 addSbtPlugin("net.bzzt" % "sbt-reproducible-builds" % "0.31")
 addSbtPlugin("pl.project13.scala" % "sbt-jmh" % "0.4.5")
-addSbtPlugin("com.github.sbt" % "sbt-ci-release" % "1.5.12")
 
 // docs
 addSbtPlugin("com.lightbend.akka" % "sbt-paradox-akka" % "0.51")
@@ -23,6 +22,9 @@ addSbtPlugin("com.lightbend.paradox" % "sbt-paradox-dependencies" % "0.2.2")
 addSbtPlugin("com.lightbend.sbt" % "sbt-publish-rsync" % "0.2")
 addSbtPlugin("com.github.sbt" % "sbt-unidoc" % "0.5.0")
 addSbtPlugin("com.github.sbt" % "sbt-site-paradox" % "1.5.0")
+
+addSbtPlugin("com.codecommit" % "sbt-github-packages" % "0.5.3")
+addSbtPlugin("com.github.sbt" % "sbt-dynver" % "5.0.1")
 
 // For RawText
 libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "5.13.2.202306221912-r"
